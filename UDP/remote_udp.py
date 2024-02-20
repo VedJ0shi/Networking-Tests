@@ -9,7 +9,7 @@ PORT = 1060
 #server chooses to randomly answer only half of client requests
 #server listening at port 1060 on all local IP interfaces 
 if sys.argv[1] == "server":
-    sock.bind(('', PORT)) #OS chooses IP addr as 0.0.0.0 which means 'any local interface'
+    sock.bind(('', PORT)) #OS chooses IP addr 0.0.0.0 which means 'any local interface'
     print('Listening at:', sock.getsockname())
     while True:
         data, client_addr = sock.recvfrom(MAX)
@@ -33,7 +33,7 @@ elif sys.argv[1] == "client":
         print(f'...waiting up to {delay} seconds for reply from server')
         try:
             data = sock.recv(MAX)
-        except socket.timeout: #TimeoutError
+        except socket.timeout: #TimeoutError from network operation
             delay = delay + 0.1 #increases delay in order to adjust to potential congestion at server
             if delay >= 2.5:
                 raise RuntimeError("Server might be down...")
