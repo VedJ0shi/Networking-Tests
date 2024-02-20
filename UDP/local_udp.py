@@ -1,14 +1,15 @@
 #socket in action
 #both UDP client and server are on localhost 127.0.0.1
+#127.0.0.0 – 127.255.255.255 are reserved for loopback, communication managed within OS
 import socket, sys
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #SOCK_DGRAM refers to UDP datagrams
 
-MAX = 65535
+MAX = 65535 #max number of bytes to be read by socket in a single stream
 PORT = 1060
 
 if sys.argv[1] == "server":
-    sock.bind(('127.0.0.1', PORT)) #server requests OS to grant it the given IP and UDP Port address
+    sock.bind(('127.0.0.1', PORT)) #server requests OS to grant it the given IP addr and Port
     print('Server listening at', sock.getsockname())
     while True:
         data, address = sock.recvfrom(MAX)
