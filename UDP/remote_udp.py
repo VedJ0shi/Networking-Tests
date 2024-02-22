@@ -24,7 +24,7 @@ if sys.argv[1] == "server":
 #client is localhost 127.0.0.1
 elif sys.argv[1] == "client":
     server_addr = '127.0.0.55' #arbitrary IP addr in the loopback range
-    sock.connect((server_addr, PORT)) 
+    sock.connect((server_addr, PORT)) #not a network operation, only sets default send addr and response filter
     print('Sending requests from:',sock.getsockname()) #ephemeral PORT automatically assigned
     delay = 0.1
     while True:
