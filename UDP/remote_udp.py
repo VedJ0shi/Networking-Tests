@@ -1,15 +1,15 @@
 #modeling remote server-client UDP communication with randomly dropped packets
 import socket, sys, random
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #open UDP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #opens UDP socket
 
-MAX = 65535 #max number of bytes to be read by socket in a single stream
+MAX = 65535 
 PORT = 1060
 
 #server chooses to randomly answer only half of client requests
 #server listening at port 1060 on all local IP interfaces 
 if sys.argv[1] == "server":
-    sock.bind(('', PORT)) #OS chooses IP addr 0.0.0.0 which means 'any local interface'
+    sock.bind(('', PORT)) #OS assigns IP addr 0.0.0.0 which means 'any local interface'
     print('Listening at:', sock.getsockname())
     while True:
         data, client_addr = sock.recvfrom(MAX)
@@ -23,8 +23,8 @@ if sys.argv[1] == "server":
 
 #client is localhost 127.0.0.1
 elif sys.argv[1] == "client":
-    server_addr = '127.0.0.55' #arbitrary IP addr in the loopback range
-    sock.connect((server_addr, PORT)) #not a network operation, only sets default send addr and response filter
+    server_addr = '127.0.0.55' #arbitrary IP addr on the loopback interface
+    sock.connect((server_addr, PORT)) #not a network operation; only sets default send addr and response filter
     print('Sending requests from:',sock.getsockname()) #ephemeral PORT automatically assigned
     delay = 0.1
     while True:

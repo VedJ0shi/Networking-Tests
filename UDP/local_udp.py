@@ -5,7 +5,7 @@ import socket, sys
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #SOCK_DGRAM refers to UDP datagrams
 
-MAX = 65535 #max number of bytes to be read by socket in a single stream
+MAX = 65535 #bufsize-- max number of bytes in TCP payload to be read into memory from buffer 
 PORT = 1060
 
 if sys.argv[1] == "server":
@@ -21,4 +21,6 @@ elif sys.argv[1] == "client":
     print ('Address after sending', sock.getsockname()) #OS automatically assigns ephemeral PORT to client when it calls sendto()
     data, address = sock.recvfrom(MAX) #client expects reply from server
     print ('Server at', address, 'says:', repr(data)) 
+
+#https://stackoverflow.com/questions/67509709/is-recvbufsize-guaranteed-to-receive-all-the-data-if-sended-data-is-smaller-th
 
