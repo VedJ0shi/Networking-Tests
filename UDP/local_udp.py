@@ -23,4 +23,5 @@ elif sys.argv[1] == "client":
     print ('Server at', address, 'says:', repr(data)) 
 
 #https://stackoverflow.com/questions/67509709/is-recvbufsize-guaranteed-to-receive-all-the-data-if-sended-data-is-smaller-th
-
+#https://stackoverflow.com/questions/8748711/udp-recv-recvfrom-multiple-senders
+    
