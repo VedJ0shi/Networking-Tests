@@ -2,13 +2,13 @@
 #use socket.getaddrinfo(url) to retrieve all coordinates sufficient to establish such a socket
 import socket
 
-'''socket coordinates are the values required for socket object construction and connections'''
+'''socket coordinates are the values required for socket object construction and deployment'''
 
 coord_list = socket.getaddrinfo('maps.google.com', 'www')
 
-print(coord_list) #returns list of one or more tuples, each tuple representing valid coordinates for connection
+print(coord_list) #returns list of one or more tuples
 
-ipv4_coordinates = coord_list[0] #chose first tuple bc it is for AF_INET TCP
+ipv4_coordinates = coord_list[0] #chose first tuple bc it is for IPv4 TCP
 print(ipv4_coordinates) #tuple will contain valid socket coordinates 
 print()
 
