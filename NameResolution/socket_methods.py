@@ -1,6 +1,6 @@
 #not an executable script; read only
-'''below are all the major socket methods that deal with addresses
-'''
+'''below are all the major socket methods that deal with addresses'''
+
 mysocket = "socket.socket(socket.AF_INET, ...) "
 addr = ('IP addr', 'PORT')
 data = b'data'

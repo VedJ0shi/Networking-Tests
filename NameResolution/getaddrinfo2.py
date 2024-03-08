@@ -11,3 +11,6 @@ sock.connect(coords[4]) #TCP connection with peer at www.upenn.edu
 print(sock.getpeername())
 sock.close()
 
+#https://stackoverflow.com/questions/2157592/how-does-getaddrinfo-do-dns-lookup
+
+
