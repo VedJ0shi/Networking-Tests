@@ -51,13 +51,18 @@ elif sys.argv[1] == "client":
     bytes_received = 0
     while True:
         data = sock.recv(8) #bufsize can be modified
-        if data == b'': #in this case, recv() returns empty once server initiates close()
+        if data == b'': #in this case, recv() returned empty bc server initiated close()
             print("byte stream finished")
             break
         bytes_received = bytes_received + len(data)
         print("Server sent back:", repr(data))
         print(f"Total {bytes_received} bytes received")   
     
-    sock.close()
+    sock.close() 
 
+'''generally, both .close() and .shutdown(socket.SHUT_WR) initiate a FIN packet, but
+difference is .close() realeases all system resources for the associated socket
+'''
 
+#https://stackoverflow.com/questions/4160347/close-vs-shutdown-socket
+    
