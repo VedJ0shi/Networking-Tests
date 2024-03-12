@@ -1,4 +1,4 @@
-#program that checks if a web server at some url is indeed listening at port 80
+#checks if web server at provided url is indeed listening for TCP/stream connections at port 80
 import sys, socket
 
 url_or_ip = sys.argv[1] #expects len(sys.argv) = 2
