@@ -22,8 +22,8 @@ print(struct.calcsize('f')) #both int and float stored in fixed 4 bytes
 print(struct.calcsize('iif')) 
 
 
-'''struct.pack() is best for transmission of binary information while .encode() 
-better for transmission of text information i.e. info to be read as a str '''
+'''struct.pack() best for transmission of structured binary information while
+.encode() better for transmission of text information i.e. info to be read as a str '''
 
 
 
