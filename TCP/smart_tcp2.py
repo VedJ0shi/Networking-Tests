@@ -13,7 +13,7 @@ if sys.argv[1] == "server": #expects len(sys.argv) = 3
     sock.listen(1) 
     while True:
         print("Listening at:", sock.getsockname())
-        sc, clientname = sock.accept() #accept() is a blocking call
+        sc, clientname = sock.accept() #accept() is a blocking call; accepts hadshaked connections in backlog
         print("Processing up to 1024 bytes from:", clientname)
         n=0
         while True:
