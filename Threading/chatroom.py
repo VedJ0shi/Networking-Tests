@@ -65,6 +65,7 @@ def read(sock): #expects sock to be connected to a server
             break
 
 
+
 if sys.argv[1] == 'client':
     sock.connect((HOST, PORT))
     message = sock.recv(1024)
