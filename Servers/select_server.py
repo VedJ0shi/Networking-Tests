@@ -9,7 +9,7 @@ import logging, select
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     sock = launcelot.setup(5) #listening socket with backlog of 5
-    sockets = [sock] #initialize list of connection sockets
+    sockets = [sock] #list of primary listening socket + accepted connection sockets
     count = 0
     while True:
         '''select() will poll and return only the event-updated sockets, including original listening socket'''
@@ -24,7 +24,7 @@ if __name__ == '__main__':
                 try:
                     question = launcelot.recv_until(read_sock, '?')
                     answer = launcelot.qa_dict[question.decode()]
-                    read_sock.sendall(answer.encode())
+                    read_sock.sendall(answer.encode()) #assuming that send() will not block (good assumption for this case)
                 except EOFError:
                     logging.info(f'connection with client {read_sock.fileno()} closed')
                     read_sock.close()
