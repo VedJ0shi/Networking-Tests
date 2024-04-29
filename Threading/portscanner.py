@@ -8,7 +8,7 @@ def scan(PORT):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         sock.connect((HOST, PORT)) #network operation--> blocking call that returns once TCP handshake completes   
-    except:
+    except: #not listening on the port
         sock.close()
         return False
     else:
@@ -19,7 +19,7 @@ q_flag = input('Use multithreading and queues, y/n? ')
 
 if q_flag == 'n': #slow approach
     for port_num in range(1, 1024): #reserved range (for known services i.e. http, https, ssh, smtp)
-        result = scan(port_num) #scans each port sequentially, which includes a wait-time for connect() call
+        result = scan(port_num) #scans each port sequentially, which includes a wait-time for .connect() call
         if not result:
             print(f'Port {port_num} is closed')
         else:

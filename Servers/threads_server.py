@@ -25,7 +25,7 @@ if __name__ == '__main__':
     T1 = threading.Thread(target=accept_client, args=(sock,))
     T2 = threading.Thread(target=accept_client, args=(sock,))
     T1.start()
-    T2.start()
+    T2.start() #alternatively, use ThreadPool
 
     '''threading is no longer safe (outcomes become volatile) if the 
     various threads of control are accessing and updating shared data structures
