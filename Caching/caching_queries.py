@@ -1,5 +1,5 @@
-#can cache queries to a stable database
-#the key can be the hash of the long str that represents SQL query 
+#can cache database queries
+#the stored key will be the hash of the long str that represents SQL query 
 import memcache
 
 mc = memcache.Client(['127.0.0.1:11211']) 

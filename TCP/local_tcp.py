@@ -10,7 +10,7 @@ def recv_all(sock, length): #returns only once length bytes of data has accumula
     data = b''
     while len(data) < length: #recv() call has to be within loop to avoid partial reception due to occupied buffer
         newdata = sock.recv(length-len(data))
-        if newdata == None:
+        if not newdata:
             raise EOFError(f'Socket close {len(data)} bytes into a {length} message')
         data = data + newdata
     return data
@@ -47,6 +47,6 @@ elif sys.argv[1] == "client":
 
 
 '''Note: for TCP streams, the bufsize arg in recv(bufsize) is the upper bound on the bytes 
- of TCP payload that can be read into memory from a byte stream in the buffer; 
+ of the payload that can be read into memory from the byte stream in receive buffer; 
  may read in less bytes than bufsize if buffer has any data waiting in it-- 
  hence the use of recv_all() if a fixed message length known apriori'''

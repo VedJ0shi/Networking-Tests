@@ -12,8 +12,8 @@ def compute(numkey):
     val = mc.get(numkey)
     if val == None: #if not yet cached
         time.sleep(.01)  #pretend sqrt is expensive
-        val = math.sqrt(numkey)
-        mc.set(numkey, val)
+        val = math.sqrt(numkey) #do the one-time computation
+        mc.set(numkey, val) 
     return val
 
 if __name__ == '__main__':
