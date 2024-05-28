@@ -17,7 +17,7 @@ def get_data(lookup):
     result = mc.get(hash(lookup))
     if not result:
         result = database_query(lookup) #expensive
-        mc.set(hash(lookup), result)
+        mc.set(hash(lookup), result) #hash of query statement is the key
     return result
         
 

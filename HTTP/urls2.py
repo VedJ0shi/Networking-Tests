@@ -10,3 +10,9 @@ print(query)
 but rather as a formal path separation '''
 
 
+query2 = urlencode({'mode':'topographic', 'pin': 'Boston, MA'})
+print(query2)
+
+query3 = urlencode({'mode':'topographic', 'pin': ('Boston, MA', 'Chicago, IL' )}, doseq=True)
+print(query3)
+
