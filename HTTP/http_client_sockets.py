@@ -1,20 +1,18 @@
-#socket/IO-level HTTP client-- implementing with simple GET request/response pattern
-import  io, socket
-
-#structure of requests/responses: https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages
+#socket/IO-level HTTP client-- implements simple GET request/response pattern
+import io, socket
 
 class HTTPRequestConnection(socket.socket):
-    '''handles a single GET request on Port 80'''
 
-    def __init__(self, *args):
-        super().__init__(*args)
-        if len(args) < 2 or args[1] != socket.SOCK_STREAM:
-            raise ValueError('supports stream sockets only; please set to SOCK_STREAM')
+    def __init__(self, host, port=80):
+        socket_args = (socket.AF_INET, socket.SOCK_STREAM)
+        super().__init__(*socket_args)
+        self.host = host
+        self.port = port
     
-    def send_GET(self, host):
-        self.connect((host, 80))
+    def send_GET(self):
+        self.connect((self.host, self.port))
         print('connected to:', self.getpeername())
-        request = f'GET / HTTP/1.1\r\nHost: {host}\r\n\r\n'   #Host header needed bc an IP address may virtually host multiple distinct domains
+        request = f'GET / HTTP/1.1\r\nHost: {self.host}\r\n\r\n'   #Host header needed bc an IP address may virtually host multiple distinct domains
         self.sendall(request.encode())
         print('sent GET request to server')
     
@@ -31,7 +29,7 @@ class HTTPRequestConnection(socket.socket):
                 break
             resp = resp + stream
         self.close()
-        output = HTTPResponseBuffer() #inherits from StringIO
+        output = HTTPResponseBuffer() 
         output.write(resp.decode())
         return output #returns a HTTPResponseBuffer instance containing raw response str
 
@@ -39,7 +37,6 @@ class HTTPRequestConnection(socket.socket):
 
 
 class HTTPResponseBuffer(io.StringIO):
-    '''interface to access a single GET response'''
 
     def headers(self):
         '''header chunk is terminated by a blank line'''
@@ -68,5 +65,5 @@ class HTTPResponseBuffer(io.StringIO):
         '''response body (request resource) comes after header chunk'''
         s = self.getvalue()
         chunks = s.split('\r\n\r\n')
-        return '\r\n\r\n'.join(chunks[1:])
+        return '\r\n\r\n'.join(chunks[1:]) #in most cases, chunks list will only be split in two (headers + body)
 

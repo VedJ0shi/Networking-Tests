@@ -14,7 +14,7 @@ if sys.argv[1] == 'publisher':
     zsock.bind('tcp://127.0.0.1:5555') 
 
     while True:
-        #topic is randomly generated integer, representing location id
+        #topic is randomly generated integer bw 0 and 4, representing location id
         #pretending that publisher routes incoming sensor data from one of 5 locations
         sensor_data, topic = (random.randint(-100, 100), random.randint(0, 4))
         print(f'Sending data from location id-{topic}: {sensor_data}')

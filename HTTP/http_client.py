@@ -1,11 +1,11 @@
-#application-level HTTP client library for GET request/response pattern
+#middle-level HTTP client
 import http.client
 
 conn = http.client.HTTPConnection("www.google.com", 80)
 conn.request("GET", "/", headers={'Host':'www.google.com'})
 resp = conn.getresponse() #returns an HTTPResponse instance
 print(resp.status, resp.reason) #HTTPResponse instance methods
-print(resp.getheaders(), resp.getheader('Content-length') )
+print(resp.getheaders(), resp.getheader('Content-length'), resp.getheader('Content-type') )
 
 data = resp.read()  # This will return entire content as a bytes object
 print(data[:500], type(data)) #return first 500 bytes 
