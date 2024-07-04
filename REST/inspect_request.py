@@ -41,6 +41,6 @@ resp = requests.get(
     'http://github.com/', #server will redirect to https://
     headers={'User-agent': 'Mozilla/5.0'})
 
-print(resp.status_code) #this is the status code for the most recent request (after redirect)
+print(resp.status_code) #this is the status code for the most recent response (after redirect)
 print(resp.url)
 print(resp.history) 
