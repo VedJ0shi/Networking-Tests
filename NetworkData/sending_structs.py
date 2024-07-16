@@ -1,5 +1,5 @@
 import sys, socket, struct, time
-#sending ints and floats as C Structs (work with fixed-size bytes in memory) over the network
+#sending ints and floats as C Structs (fixed-size bytes in memory) over the network
 
 '''client packs & sends stream of powers of 1/2 to server over TCP connection'''
 
@@ -22,9 +22,9 @@ def recv_all(sock, size):
 if sys.argv[1] == 'client':
     sock.connect((HOST, PORT))
     seq = [(1/2)**n for n in range(1,51)] #50 floats to be packed
-    length = len(seq)*struct.calcsize('f') #length is number of bytes to be sent
+    stream_length = len(seq)*struct.calcsize('f') #length is number of bytes to be sent
     sock.shutdown(socket.SHUT_RD)
-    sock.sendall(struct.pack('i', length)) #sends bytes
+    sock.sendall(struct.pack('i', stream_length)) #akin to sending a content-length header
     time.sleep(1)
     byte_stream = struct.pack(f'{len(seq)}f', *seq) #floats in seq are given as parameters to .pack()
     sock.sendall(byte_stream)
@@ -37,10 +37,10 @@ elif sys.argv[1] == 'server':
     sock_conn, _ = sock.accept()
     sock_conn.shutdown(socket.SHUT_WR)
     header = sock_conn.recv(1024)
-    length = struct.unpack('i', header)[0] #.unpack() returns tuple, even if its one item
-    print(f'Client will be sending {length} bytes of data...')
-    byte_stream = recv_all(sock_conn, length)
-    data = struct.unpack(f'{int(length/struct.calcsize("f"))}f', byte_stream)
+    stream_length = struct.unpack('i', header)[0] #.unpack() returns tuple, even if its one item
+    print(f'Client will be sending {stream_length} bytes of data...')
+    byte_stream = recv_all(sock_conn, stream_length)
+    data = struct.unpack(f'{int(stream_length/struct.calcsize("f"))}f', byte_stream)
     print(f"data is of type {type(data[0])}")
     for d in data:
         print(d)
